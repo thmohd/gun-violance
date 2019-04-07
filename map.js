@@ -1,4 +1,4 @@
-const map = L.map('map').setView([37.2941, -120.32],6);
+const map = L.map('map').setView([37.2941, -120.90],9);
 
 let defaultToDarkFilter = [
     'grayscale:100%',
@@ -30,8 +30,16 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
     const incident = g.selectAll("circle")
       .data(data)
       .enter().append("circle")
-      .style("stroke", "#333")
+      //.style("stroke", "#333")
       .style("opacity", .5)
+      .attr('fill','transparent')
+      .attr("r", (d) => {
+        return Number(d.Injured) * 2 + Number(d.Killed) * 2 + 5
+      })
+      .attr("class","incident")
+
+
+      incident.transition().delay( (d,i) => i/5).duration(200)
       .style("fill", (d) =>{
         if(d.Killed > 0){
           return "#b01716"
@@ -40,14 +48,13 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
           return "#1a6ead"
         }
       })
-      .attr("r", (d) => {
-        return Number(d.Injured) * 2 + Number(d.Killed) * 2 + 5
-      })
-      .attr("class","incident");
 
-      /*incident.on('mouseover', (d)=>{
-        console.log(d)
-      })*/
+      incident.on('mouseover', function(d){
+        d3.select(this).style("opacity", 1)
+      })
+      incident.on('mouseout', function(d){
+        d3.select(this).style("opacity", .4)
+      })
 
     map.on("viewreset", update);
     update();
