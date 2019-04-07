@@ -23,7 +23,7 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
     const incident = g_il.selectAll("circle")
       .data(data)
       .enter().append("circle")
-      .style("stroke", "#333")
+      //.style("stroke", "#333")
       .style("opacity", .5)
       .attr('fill','transparent')
       .attr("r", (d) => {
