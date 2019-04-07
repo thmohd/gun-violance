@@ -42,10 +42,13 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
       incident.transition().delay( (d,i) => i/5).duration(200)
       .style("fill", (d) =>{
         if(d.Killed > 0){
-          return "#b01716"
+          return "rgb(250, 36, 73)"
+        }
+        else if(d.Injured > 0){
+          return "1a6ead"
         }
         else{
-          return "#1a6ead"
+          return "rgb(67, 113, 94)"
         }
       })
 
