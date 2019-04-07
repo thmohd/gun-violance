@@ -1,4 +1,4 @@
-const map_tx = L.map('map_tx').setView([29.8134, -95.7189],9);
+const map_tx = L.map('map_tx').setView([29.8134, -94.5189],9);
 
 L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
     attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
@@ -15,9 +15,7 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
   d3.csv('../data/tx.csv').then(data => {
     data.forEach(function(d) {
       const geo = d.Geolocation.split(",")
-      if(geo.length > 1){
-        d.LatLng = new L.LatLng(Number(geo[0]),Number(geo[1]))
-      }
+      d.LatLng = new L.LatLng(geo[0],geo[1])
     })
 
 
@@ -61,11 +59,9 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
     function update() {
       incident.attr("transform",
       function(d) {
-        if(d.LatLng){
-          return "translate("+
-            map_ny.latLngToLayerPoint(d.LatLng).x +","+
-            map_ny.latLngToLayerPoint(d.LatLng).y +")";
-          }
+        return "translate("+
+          map_tx.latLngToLayerPoint(d.LatLng).x +","+
+          map_tx.latLngToLayerPoint(d.LatLng).y +")";
         }
       )
     }
