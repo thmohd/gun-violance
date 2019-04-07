@@ -1,4 +1,4 @@
-const map_ny = L.map('map_ny').setView([37.2941, -120.90],9);
+const map_ny = L.map('map_ny').setView([42.9218, -78.8462],9);
 
 
 L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
@@ -13,10 +13,16 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
                 .select("svg");
 	g_ny = svg_ny.append("g");
 
-  d3.csv('../data/ca.csv').then(data => {
+  d3.csv('../data/ny.csv').then(data => {
     data.forEach(function(d) {
+
       const geo = d.Geolocation.split(",")
-      d.LatLng = new L.LatLng(geo[0],geo[1])
+      console.log(geo)
+      if(geo.length > 1){
+        d.LatLng = new L.LatLng(Number(geo[0]),Number(geo[1]))
+      }else{
+        console.log(d.Geolocation)
+      }
     })
 
 
@@ -60,9 +66,11 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
     function update() {
       incident.attr("transform",
       function(d) {
-        return "translate("+
-          map_ny.latLngToLayerPoint(d.LatLng).x +","+
-          map_ny.latLngToLayerPoint(d.LatLng).y +")";
+        if(d.LatLng){
+          return "translate("+
+            map_ny.latLngToLayerPoint(d.LatLng).x +","+
+            map_ny.latLngToLayerPoint(d.LatLng).y +")";
+          }
         }
       )
     }
