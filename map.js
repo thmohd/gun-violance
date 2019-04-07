@@ -3,6 +3,9 @@ const map = L.map('map').setView([37.2941, -120.32],6);
 let defaultToDarkFilter = [
     'grayscale:100%',
     'invert:100%',
+    'brightness:95%',
+    'contrast:130%',
+    'grayscale:20%',
 ]
 
 L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
@@ -29,13 +32,22 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
       .enter().append("circle")
       .style("stroke", "#333")
       .style("opacity", .5)
-      .style("fill", "#1a6ead")
-      .attr("r", 10)
+      .style("fill", (d) =>{
+        if(d.Killed > 0){
+          return "#b01716"
+        }
+        else{
+          return "#1a6ead"
+        }
+      })
+      .attr("r", (d) => {
+        return Number(d.Injured) * 2 + Number(d.Killed) * 2 + 5
+      })
       .attr("class","incident");
 
-      incident.on('mouseover', (d)=>{
+      /*incident.on('mouseover', (d)=>{
         console.log(d)
-      })
+      })*/
 
     map.on("viewreset", update);
     update();
