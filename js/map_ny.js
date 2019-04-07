@@ -1,33 +1,26 @@
-const map_ca = L.map('map_ca').setView([37.2941, -120.90],9);
+const map_ny = L.map('map_ny').setView([37.2941, -120.90],9);
 
-let defaultToDarkFilter = [
-    'grayscale:100%',
-    'invert:100%',
-    'brightness:95%',
-    'contrast:130%',
-    'grayscale:20%',
-]
 
 L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
     attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
     filter: defaultToDarkFilter
-}).addTo(map_ca);
+}).addTo(map_ny);
 
-	map_ca._initPathRoot()
+	map_ny._initPathRoot()
 
 // D3 Map
-	const svg = d3.select("#map_ca")
+	const svg_ny = d3.select("#map_ny")
                 .select("svg");
-	g = svg.append("g");
+	g_ny = svg_ny.append("g");
 
-  d3.csv('ca.csv').then(data => {
+  d3.csv('../data/ca.csv').then(data => {
     data.forEach(function(d) {
       const geo = d.Geolocation.split(",")
       d.LatLng = new L.LatLng(geo[0],geo[1])
     })
 
 
-    const incident = g.selectAll("circle")
+    const incident = g_ny.selectAll("circle")
       .data(data)
       .enter().append("circle")
       //.style("stroke", "#333")
@@ -61,22 +54,22 @@ L.tileLayer.colorFilter('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
         d3.select(this).style("opacity", .4)
       })
 
-    map_ca.on("viewreset", update);
+    map_ny.on("viewreset", update);
     update();
 
     function update() {
       incident.attr("transform",
       function(d) {
         return "translate("+
-          map_ca.latLngToLayerPoint(d.LatLng).x +","+
-          map_ca.latLngToLayerPoint(d.LatLng).y +")";
+          map_ny.latLngToLayerPoint(d.LatLng).x +","+
+          map_ny.latLngToLayerPoint(d.LatLng).y +")";
         }
       )
     }
 
     // Add Info window
     const showDetails = (d) => {
-        d3.select("#map_ca .info")
+        d3.select("#map_ny .info")
           .style("display","block")
           .html(() => (
             `<h2>Details</h2>

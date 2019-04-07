@@ -1,4 +1,4 @@
-Base.IncidentDate,Counts.NumberOfParticipantsInjured,Counts.NumberOfParticipantsKilled,Geolocation,Guns Involved,Incident Characteristics,Location.Address,Location.CityOrCounty,Location.State,Notes,Participants
+Date,Injured,Killed,Geolocation,Guns Involved,Incident Characteristics,Location.Address,Location.CityOrCounty,Location.State,Notes,Participants
 "December 29, 2017",1,0," 41.8908, -87.685",1 gun involved.|$Type: Unknown$Stolen: Unknown,"Shot - Wounded/Injured$Drive-by (car to street, car to car)",2300 W Grand Ave,Chicago,Illinois,"Victim's car rammed repeatedly in targeted attack; victim shot, chest, after crashing car, by attacker driving by; serious;",Type: Victim$Age: 19$Age Group: Adult 18+$Gender: Male$Status: Injured|Type: Subject-Suspect$Gender: Male$Status: Unharmed
 "December 23, 2017",0,0," 41.988, -87.8899",1 gun involved.|$Type: Shotgun$Stolen: Unknown,Non-Shooting Incident$Brandishing/flourishing/open carry/lost/found,,Chicago,Illinois,"Unloaded, apparently brand-new shotgun found underneath car, on 3rd floor of parking structure;
 41.988039, -87.889889 ;",
