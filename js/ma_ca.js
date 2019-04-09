@@ -1,26 +1,27 @@
-const map_ca = L.map("map_ca").setView([37.2941, -120.9], 9);
-const california_data = [];
-L.tileLayer
-    .colorFilter("https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png", {
-        attribution:
-            '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
-        filter: defaultToDarkFilter
-    })
-    .addTo(map_ca);
+const showCaliforniaData = california_data => {
+    const map_ca = L.map("map_ca").setView([37.2941, -120.9], 9);
+    //const california_data = [];
+    L.tileLayer
+        .colorFilter("https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png", {
+            attribution:
+                '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
+            filter: defaultToDarkFilter
+        })
+        .addTo(map_ca);
 
-map_ca._initPathRoot();
+    map_ca._initPathRoot();
 
-// D3 Map
-const svg_ca = d3.select("#map_ca").select("svg");
-g_ca = svg_ca.append("g");
+    // D3 Map
+    const svg_ca = d3.select("#map_ca").select("svg");
+    g_ca = svg_ca.append("g");
 
-d3.csv("../data/gun_violence.csv").then(data => {
-    data.forEach(function(d) {
-        if (d.state === "California" && d.lat.length > 0 && d.long.length > 0) {
-            d.LatLng = new L.LatLng(d.lat, d.long);
-            california_data.push(d);
-        }
-    });
+    /*d3.csv("../data/gun_violence.csv").then(data => {
+        data.forEach(function(d) {
+            if (d.state === "California" && d.lat.length > 0 && d.long.length > 0) {
+                d.LatLng = new L.LatLng(d.lat, d.long);
+                california_data.push(d);
+            }
+        });*/
 
     const incident = g_ca
         .selectAll("circle")
@@ -80,10 +81,11 @@ d3.csv("../data/gun_violence.csv").then(data => {
             .html(
                 () =>
                     `<h2>Details</h2>
-            <p>Date: ${d.date}</p>
-            <p>Location: ${d.address}</p>
-            <p>Killed: ${d.killed}</p>
-            <p>Injured: ${d.injured}</p>`
+                <p>Date: ${d.date}</p>
+                <p>Location: ${d.address}</p>
+                <p>Killed: ${d.killed}</p>
+                <p>Injured: ${d.injured}</p>`
             );
     };
-});
+    //});
+};
